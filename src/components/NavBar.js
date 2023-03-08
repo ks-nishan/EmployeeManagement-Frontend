@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 
-export default class NavBar extends Component {
+export default class extends Component {
   render() {
-    return <div>NavBar</div>;
+    return (
+      <nav class="navbar navbar-light bg-light">
+        <span class="navbar-brand mb-0 h1">Employee Management</span>
+      </nav>
+    );
   }
 }

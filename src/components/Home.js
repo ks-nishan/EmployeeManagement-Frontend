@@ -10,7 +10,6 @@ export default class Home extends Component {
   }
 
   componentDidMount() {
-    console.log("method called");
     this.retriveEmployees();
   }
 
@@ -25,19 +24,64 @@ export default class Home extends Component {
     });
   };
 
+  onDelete = (id) => {
+    axios.delete(`http://localhost:8000/employee/delete/${id}`).then((res) => {
+      alert("Employee Deleted Succesfully!!!");
+      this.retriveEmployees();
+    });
+  };
+
+  filterData = (employees, key) => {
+    const result = employees.filter((employee) => {
+      return employee.type.includes(key);
+    });
+    this.setState({
+      employees: result,
+    });
+  };
+
+  handelSearchArea = (e) => {
+    const key = e.currentTarget.value;
+
+    axios.get("http://localhost:8000/employees").then((res) => {
+      if (res.data.success) {
+        this.filterData(res.data.existingEmployees, key);
+      }
+    });
+  };
+
   render() {
     return (
       <div className="container">
-        <p className="font-weight-bold">Peoples</p>
-        <div className="text-right">
-          <button className="btn btn-primary">
-            <a
-              href="/create"
-              style={{ textDecoration: "none", color: "white" }}
+        <p className="font-weight-bold">People</p>
+        <div className="text-right row">
+          <div className="col-lg-6 mt-2 mb-2">
+            {/* <input
+              className="form-control"
+              type="search"
+              onChange={this.handelSearchArea}
+            ></input> */}
+            <select
+              className="form-control"
+              type="search"
+              onChange={this.handelSearchArea}
             >
-              Add People
-            </a>
-          </button>
+              <option>Full Time</option>
+              <option>Part Time</option>
+              <option>Contract Basis</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div className="col-lg-3 mt-2 mb-2">
+            <button className="btn btn-primary">
+              <a
+                href="/create"
+                style={{ textDecoration: "none", color: "white" }}
+              >
+                Add People
+              </a>
+            </button>
+          </div>
         </div>
         <br></br>
         <table className="table">
@@ -67,11 +111,15 @@ export default class Home extends Component {
                 <td>{employees.type}</td>
                 <td>{employees.experience}</td>
                 <td>
-                  <a className="text-primary" href="#">
+                  <a className="text-primary" href={`/edit/${employees._id}`}>
                     Edit
                   </a>
                   &nbsp;&nbsp;
-                  <a className="text-danger" href="#">
+                  <a
+                    className="text-danger"
+                    href="#"
+                    onClick={() => this.onDelete(employees._id)}
+                  >
                     Delete
                   </a>
                 </td>
