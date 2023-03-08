@@ -100,7 +100,7 @@ export default class CreateEmployee extends Component {
           <p className="font-weight-bold mt-3">Add People</p>
           <hr></hr>
         </div>
-        <form style={formLetter}>
+        <form style={formLetter} className="needs-validation">
           <div className="form-group">
             <label htmlFor="full_name">Full Name*</label>
             <input
@@ -111,7 +111,9 @@ export default class CreateEmployee extends Component {
               placeholder="Denagama Withana Kushantha Charuka Silva"
               onChange={this.handelInputChange}
               value={this.state.full_name}
+              required
             ></input>
+            <div class="valid-tooltip">Looks good!</div>
           </div>
           <div className="form-row">
             <div className="form-group col-sm-6 my-1">
@@ -124,6 +126,7 @@ export default class CreateEmployee extends Component {
                 placeholder="D. W. K. C. Silva"
                 value={this.state.initial_name}
                 onChange={this.handelInputChange}
+                required
               ></input>
             </div>
             <div className="form-group col-sm-6 my-1">
@@ -141,6 +144,7 @@ export default class CreateEmployee extends Component {
           </div>
           <div className="form-row">
             <div className="form-group col-sm-6 my-1">
+              <label htmlFor="display_name">Gender</label>
               <select
                 type="text"
                 className="form-control"

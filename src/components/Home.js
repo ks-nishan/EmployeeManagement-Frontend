@@ -106,7 +106,7 @@ export default class Home extends Component {
                     {employees.display_name}
                   </a>
                 </td>
-                <td>{index + 1}</td>
+                <td>{"000" + index++}</td>
                 <td>{employees.designation}</td>
                 <td>{employees.type}</td>
                 <td>{employees.experience}</td>
